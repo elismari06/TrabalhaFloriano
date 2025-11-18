@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro | Portal de Empregos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Adaptações específicas da tela de cadastro */
+        /* VARIÁVEIS DE COR DE EXEMPLO PARA ESTE ARQUIVO (IDEALMENTE ESTÃO NO style.css) */
+        :root {
+            --primary-color: #1a4369;
+            --action-color: #ff6f00;
+            --card-background: #ffffff;
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --border-color: #dee2e6;
+            --text-dark: #343a40;
+            --secondary-color: #6c757d;
+        }
+
+        /* --- Estilos do Cabeçalho e Botão de Voltar --- */
+        .main-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0 20px;
+            /* Ajustado */
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .main-header h1 a {
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Estilo do link/botão "Voltar ao Início" */
+        .back-to-home-btn {
+            display: inline-block;
+            background-color: var(--action-color);
+            /* Laranja Forte */
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95em;
+            margin-top: 0;
+            /* Removido margem já que é absoluto */
+            transition: background-color 0.3s, transform 0.1s;
+            /* Posição no header */
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+        }
+
+        .back-to-home-btn i {
+            margin-right: 5px;
+        }
+
+        .back-to-home-btn:hover {
+            background-color: #cc5900;
+            transform: translateY(-50%) scale(1.02);
+        }
+
+        @media (max-width: 768px) {
+            .back-to-home-btn {
+                position: static;
+                transform: none;
+                margin: 10px auto 10px auto;
+                display: block;
+                width: 90%;
+                max-width: 300px;
+            }
+
+            .main-header {
+                padding-bottom: 20px;
+            }
+        }
+
+        /* --- Fim do Novo Estilo --- */
+
+        /* Adaptações específicas da tela de cadastro (EXISTENTES) */
+        .cadastro-container {
+            max-width: 600px;
+            margin: 60px auto;
+            background-color: var(--card-background);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+        }
+
+        .cadastro-container h2 {
+            text-align: center;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .role-selection {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .role-selection button {
+            flex: 1;
+            margin: 0 5px;
+            padding: 12px;
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .role-selection button.active,
+        .role-selection button:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        input,
+        textarea {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-family: var(--font-family);
+            font-size: 1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 67, 105, 0.2);
+            outline: none;
+        }
+
+        textarea {
+            resize: none;
+            height: 90px;
+        }
+
+        button[type="submit"] {
+            background-color: var(--action-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #cc5900;
+            transform: translateY(-2px);
+        }
+
+
+        .hidden {
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: var(--secondary-color);
+        }
+
+        .footer a {
+            color: var(--action-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="main-header">
+        <h1><a href="index.html" style="text-decoration: none; color: white;">Portal de Empregos</a></h1>
+        <p class="subtitle">Conectando talentos e oportunidades</p>
+
+        <a href="index.html" class="back-to-home-btn">
+            <i class="fas fa-arrow-left"></i> Voltar ao Início
+        </a>
+    </header>
+
+    <main class="cadastro-container">
+        <h2>Crie sua conta</h2>
+
+        <div class="role-selection">
+            <button id="btnColaborador" class="active">Sou Colaborador</button>
+            <button id="btnContratante">Sou Contratante</button>
+        </div>
+
+        <form id="formColaborador">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="Digite seu e-mail" required>
+
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" placeholder="(DDD) 90000-0000">
+
+            <label for="profissao">Profissão</label>
+            <input type="text" id="profissao" placeholder="Ex: Vendedor, Programador, etc">
+
+            <label for="sobre">Sobre você</label>
+            <textarea id="sobre" placeholder="Conte um pouco sobre suas experiências..."></textarea>
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" placeholder="Digite uma senha" required>
+
+            <div class="mb-4">
+                <label for="arquivo" class="form-label">Anexar currículo (PDF ou DOC):</label>
+                <input type="file" class="form-control" id="arquivo" accept=".pdf,.doc,.docx" required>
+            </div>
+
+
+            <button type="submit">Cadastrar como Colaborador</button>
+        </form>
+
+        <form id="formContratante" class="hidden">
+            <label for="empresa">Nome da empresa</label>
+            <input type="text" id="empresa" placeholder="Digite o nome da empresa" required>
+
+            <label for="responsavel">Responsável</label>
+            <input type="text" id="responsavel" placeholder="Nome do responsável" required>
+
+            <label for="email_empresa">E-mail</label>
+            <input type="email" id="email_empresa" placeholder="E-mail de contato" required>
+
+            <label for="telefone_empresa">Telefone</label>
+            <input type="tel" id="telefone_empresa" placeholder="(DDD) 90000-0000">
+
+            <label for="descricao">Descrição da empresa</label>
+            <textarea id="descricao" placeholder="Fale um pouco sobre sua empresa..."></textarea>
+
+            <button type="submit">Cadastrar como Contratante</button>
+
+        </form>
+
+        <div class="footer">
+            Já tem uma conta? <a href="index.html">Entrar</a>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2025 Portal de Empregos - Todos os direitos reservados</p>
+    </footer>
+    <script>
+        const API_URL = 'backend'; // Pasta onde estão os arquivos PHP
+
+        // Estado global de autenticação
+        let currentUser = {
+            isLoggedIn: false,
+            role: null // 'colaborador', 'contratante', 'admin'
+        };
+
+        // =================================================================
+        // 1. Funções de Comunicação com o Backend PHP
+        // =================================================================
+
+        async function fetchVagas() {
+            try {
+                const response = await fetch(`${API_URL}/vagas.php?action=listar`);
+                if (!response.ok) throw new Error('Erro ao buscar vagas');
+                const vagas = await response.json();
+                console.log("Vagas carregadas:", vagas);
+                // Aqui você pode chamar uma função que renderiza as vagas na tela
+            } catch (error) {
+                console.error("Erro ao carregar vagas:", error);
+            }
+        }
+
+        async function createVaga(newVagaData) {
+            try {
+                const response = await fetch(`${API_URL}/vagas.php`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(newVagaData)
+                });
+                const resultado = await response.json();
+                if (resultado.sucesso) {
+                    alert("✅ Vaga cadastrada com sucesso!");
+                } else {
+                    alert("❌ Erro ao cadastrar vaga: " + resultado.erro);
+                }
+            } catch (error) {
+                console.error("Erro ao criar vaga:", error);
+            }
+        }
+
+        /**
+         * Envia novo usuário ao backend PHP (usuarios.php)
+         */
+        async function cadastrarUsuario(userData) {
+            try {
+                const response = await fetch(`${API_URL}/usuarios.php`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(userData)
+                });
+
+                const novoUsuario = await response.json();
+
+                if (novoUsuario.sucesso) {
+                    alert(`✅ Cadastro realizado com sucesso! Bem-vindo(a) ${userData.email}.`);
+                    renderAuthStatus(userData.role);
+                } else {
+                    alert(`❌ Erro: ${novoUsuario.erro || 'Não foi possível cadastrar.'}`);
+                }
+            } catch (error) {
+                console.error("Erro ao cadastrar usuário:", error);
+                alert(`❌ Erro ao cadastrar: ${error.message}`);
+            }
+        }
+
+        // =================================================================
+        // 2. Lógica de Login (usando o banco SQLite)
+        // =================================================================
+
+        async function fazerLogin(email, senha) {
+            try {
+                const response = await fetch(`${API_URL}/usuarios.php?action=login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `email=${encodeURIComponent(email)}&senha=${encodeURIComponent(senha)}`
+                });
+
+                const dados = await response.json();
+
+                if (dados.sucesso) {
+                    alert("✅ Login realizado com sucesso!");
+                    renderAuthStatus(dados.role);
+                    return true;
+                } else {
+                    alert("❌ " + (dados.erro || "Credenciais inválidas."));
+                    return false;
+                }
+            } catch (error) {
+                console.error("Erro no login:", error);
+                alert("Erro ao fazer login: " + error.message);
+                return false;
+            }
+        }
+
+        // =================================================================
+        // 3. Renderização da Área do Usuário
+        // =================================================================
+
+        function renderAuthStatus(role) {
+            currentUser.isLoggedIn = true;
+            currentUser.role = role;
+
+            const authSidebar = document.getElementById('authStatus');
+            authSidebar.innerHTML = `
+        <h3><i class="fas fa-user-circle"></i> Usuário logado</h3>
+        <p><strong>Papel:</strong> ${role}</p>
+        <button onclick="logout()" class="auth-button" style="background-color: var(--danger-color);">
+            <i class="fas fa-sign-out-alt"></i> Sair
+        </button>
+    `;
+        }
+
+        function logout() {
+            currentUser = { isLoggedIn: false, role: null };
+            checkLoginStatus();
+        }
+
+        function checkLoginStatus() {
+            if (!currentUser.isLoggedIn) {
+                const authSidebar = document.getElementById('authStatus');
+                authSidebar.innerHTML = `
+            <h3><i class="fas fa-user-circle"></i> Área do Usuário</h3>
+            <form id="authForm" style="margin-top: 15px;">
+                <input type="email" id="authEmail" placeholder="E-mail" required style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid var(--border-color);">
+                <input type="password" id="authPassword" placeholder="Senha" required style="width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid var(--border-color);">
+                <button type="submit" class="auth-button" style="background-color: var(--action-color);">
+                    <i class="fas fa-sign-in-alt"></i> Entrar / Cadastrar
+                </button>
+            </form>
+        `;
+
+                document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
+            }
+        }
+
+        async function handleAuthSubmit(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('authEmail').value.trim();
+            const senha = document.getElementById('authPassword').value.trim();
+
+            if (!email || !senha) {
+                alert("Preencha e-mail e senha.");
+                return;
+            }
+
+            // 1. Tenta login com banco SQLite
+            const loginOk = await fazerLogin(email, senha);
+            if (loginOk) return;
+
+            // 2. Se não encontrar, oferece cadastro
+            const newRole = email.includes('contratante') ? 'contratante' : 'colaborador';
+
+            if (confirm(`Usuário não encontrado. Deseja cadastrar ${email} como novo(a) ${newRole}?`)) {
+                cadastrarUsuario({
+                    nome: email.split('@')[0],
+                    email: email,
+                    senha: senha,
+                    role: newRole
+                });
+            }
+        }
+
+        // =================================================================
+        // 4. Inicialização
+        // =================================================================
+        document.addEventListener("DOMContentLoaded", () => {
+            checkLoginStatus();
+        });
+
+        // =================================================================
+        // 5. Captura do formulário de cadastro de colaborador
+        // =================================================================
+        document.getElementById("formColaborador").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const userData = {
+                nome: document.getElementById("nome").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                senha: document.getElementById("senha").value.trim(), // 👈 Adicionado
+                tipo: "colaborador"
+            };
+
+            if (!userData.nome || !userData.email || !userData.senha) {
+                alert("⚠️ Preencha nome, e-mail e senha.");
+                return;
+            }
+
+            cadastrarUsuario(userData);
+        });
+
+
+    </script>
+
+</body>
+
+</html>

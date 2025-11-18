@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Trabalha Floriano</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #1a4369;
+      --action-color: #ff6f00;
+      --background-light: #f4f4f9;
+      --admin-bg: #e9ecef;
+      --admin-sidebar-bg: #343a40;
+      --danger-color: #dc3545;
+      --border-color: #dee2e6;
+    }
+
+    .admin-page {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .admin-sidebar {
+      width: 250px;
+      background-color: var(--admin-sidebar-bg);
+      color: white;
+      padding: 20px 0;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      height: 100%;
+      z-index: 100;
+    }
+
+    .admin-sidebar h2 {
+      text-align: center;
+      font-size: 1.5em;
+      margin-bottom: 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 15px;
+    }
+
+    .admin-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .admin-nav a {
+      display: block;
+      color: #adb5bd;
+      text-decoration: none;
+      padding: 12px 20px;
+      margin: 5px 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .admin-nav a:hover,
+    .admin-nav a.active {
+      background-color: var(--action-color);
+      color: white;
+    }
+
+    .admin-nav i {
+      margin-right: 10px;
+    }
+
+    .admin-logout {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .admin-logout button {
+      background-color: transparent;
+      color: #f8d7da;
+      border: 1px solid #f8d7da;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .admin-logout button:hover {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .admin-content {
+      margin-left: 250px;
+      padding: 30px;
+      flex-grow: 1;
+      background-color: var(--admin-bg);
+    }
+
+    .admin-content h1 {
+      color: var(--primary-color);
+      margin-bottom: 30px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+    }
+
+    .module-section {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+    }
+
+    .module-section h3 {
+      color: var(--action-color);
+      border-left: 5px solid var(--action-color);
+      padding-left: 10px;
+      margin-bottom: 20px;
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 0.9em;
+    }
+
+    .admin-table th,
+    .admin-table td {
+      border: 1px solid #dee2e6;
+      padding: 10px;
+      text-align: left;
+    }
+
+    .admin-table th {
+      background-color: #f8f9fa;
+      color: var(--primary-color);
+    }
+
+    .action-btn {
+      padding: 5px 10px;
+      margin-right: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8em;
+      transition: opacity 0.2s;
+    }
+
+    .btn-edit {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-delete {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-approve {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .action-btn:hover {
+      opacity: 0.8;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .status-badge {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.8em;
+      font-weight: 600;
+    }
+
+    .status-aprovada {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .status-pendente {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+     /* Dashboard Moderno */
+            .dashboard-modern {
+                padding: 0;
+            }
+            
+            .dashboard-header {
+                background: linear-gradient(135deg, #1a4369 0%, #2c5c8a 100%);
+                color: white;
+                padding: 30px;
+                border-radius: 12px 12px 0 0;
+                margin-bottom: 0;
+            }
+            
+            .dashboard-header h3 {
+                margin: 0 0 8px 0;
+                font-size: 1.8em;
+                font-weight: 700;
+            }
+            
+            .dashboard-header p {
+                margin: 0;
+                opacity: 0.9;
+                font-size: 1.1em;
+            }
+            
+            /* Grid de Estatísticas */
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+                padding: 30px;
+                background: #f8f9fa;
+            }
+            
+            .stat-card {
+                background: white;
+                padding: 25px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                border-left: 4px solid;
+            }
+            
+            .stat-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            }
+            
+            .stat-card.primary { border-left-color: #1a4369; }
+            .stat-card.success { border-left-color: #28a745; }
+            .stat-card.warning { border-left-color: #ffc107; }
+            .stat-card.info { border-left-color: #17a2b8; }
+            .stat-card.danger { border-left-color: #dc3545; }
+            
+            .stat-icon {
+                width: 60px;
+                height: 60px;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5em;
+                color: white;
+            }
+            
+            .stat-card.primary .stat-icon { background: #1a4369; }
+            .stat-card.success .stat-icon { background: #28a745; }
+            .stat-card.warning .stat-icon { background: #ffc107; }
+            .stat-card.info .stat-icon { background: #17a2b8; }
+            .stat-card.danger .stat-icon { background: #dc3545; }
+            
+            .stat-content h4 {
+                margin: 0 0 8px 0;
+                color: #6c757d;
+                font-size: 0.9em;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            
+            .stat-number {
+                font-size: 2.2em;
+                font-weight: 700;
+                color: #343a40;
+                margin-bottom: 5px;
+            }
+            
+            .stat-trend {
+                font-size: 0.85em;
+            }
+            
+            .trend-up { color: #28a745; }
+            .trend-down { color: #dc3545; }
+            .trend-warning { color: #ffc107; }
+            
+            /* Grid Principal */
+            .dashboard-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+                gap: 25px;
+                padding: 30px;
+                background: white;
+            }
+            
+            .dashboard-card {
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                overflow: hidden;
+            }
+            
+            .card-header {
+                padding: 20px 25px;
+                border-bottom: 1px solid #e9ecef;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .card-header h4 {
+                margin: 0;
+                color: #1a4369;
+                font-weight: 600;
+            }
+            
+            .badge {
+                background: #1a4369;
+                color: white;
+                padding: 4px 12px;
+                border-radius: 20px;
+                font-size: 0.8em;
+                font-weight: 600;
+            }
+            
+            .card-content {
+                padding: 25px;
+            }
+            
+            .card-footer {
+                padding: 20px 25px;
+                border-top: 1px solid #e9ecef;
+                background: #f8f9fa;
+            }
+            
+            /* Listas Recentes */
+            .recent-list {
+                space-y: 15px;
+            }
+            
+            .recent-item {
+                padding: 15px;
+                border-radius: 8px;
+                background: #f8f9fa;
+                margin-bottom: 12px;
+                transition: background-color 0.3s ease;
+            }
+            
+            .recent-item:hover {
+                background: #e9ecef;
+            }
+            
+            .recent-item:last-child {
+                margin-bottom: 0;
+            }
+            
+            .item-main {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 8px;
+            }
+            
+            .item-main strong {
+                color: #343a40;
+                font-size: 0.95em;
+            }
+            
+            .item-meta {
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.8em;
+                color: #6c757d;
+            }
+            
+            /* Status e Badges */
+            .status-badge {
+                padding: 4px 12px;
+                border-radius: 12px;
+                font-size: 0.75em;
+                font-weight: 600;
+            }
+            
+            .status-aprovada {
+                background: #d4edda;
+                color: #155724;
+            }
+            
+            .status-pendente {
+                background: #fff3cd;
+                color: #856404;
+            }
+            
+            .role-badge {
+                padding: 4px 8px;
+                border-radius: 6px;
+                font-size: 0.7em;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+            
+            .role-badge.admin { background: #dc3545; color: white; }
+            .role-badge.contratante { background: #17a2b8; color: white; }
+            .role-badge.colaborador { background: #28a745; color: white; }
+            
+            .status-indicator {
+                padding: 2px 8px;
+                border-radius: 10px;
+                font-size: 0.7em;
+                font-weight: 600;
+            }
+            
+            .status-indicator.active { background: #d4edda; color: #155724; }
+            .status-indicator.inactive { background: #f8d7da; color: #721c24; }
+            
+            /* Estatísticas Mini */
+            .stats-mini {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+                margin-bottom: 25px;
+            }
+            
+            .mini-stat {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 15px;
+                background: #f8f9fa;
+                border-radius: 8px;
+            }
+            
+            .mini-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+            
+            .mini-icon.success { background: #28a745; }
+            .mini-icon.warning { background: #ffc107; }
+            .mini-icon.info { background: #17a2b8; }
+            .mini-icon.primary { background: #1a4369; }
+            
+            .mini-content {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .mini-value {
+                font-size: 1.4em;
+                font-weight: 700;
+                color: #343a40;
+            }
+            
+            .mini-label {
+                font-size: 0.8em;
+                color: #6c757d;
+            }
+            
+            /* Gráfico de Distribuição */
+            .distribution-chart {
+                margin-top: 20px;
+            }
+            
+            .distribution-chart h5 {
+                margin: 0 0 15px 0;
+                color: #343a40;
+                font-size: 0.9em;
+                font-weight: 600;
+            }
+            
+            .chart-bars {
+                space-y: 12px;
+            }
+            
+            .chart-bar {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .bar-label {
+                width: 80px;
+                font-size: 0.8em;
+                color: #6c757d;
+            }
+            
+            .bar-container {
+                flex: 1;
+                height: 8px;
+                background: #e9ecef;
+                border-radius: 4px;
+                overflow: hidden;
+            }
+            
+            .bar-fill {
+                height: 100%;
+                border-radius: 4px;
+                transition: width 0.5s ease;
+            }
+            
+            .bar-fill.success { background: #28a745; }
+            .bar-fill.warning { background: #ffc107; }
+            .bar-fill.info { background: #17a2b8; }
+            .bar-fill.primary { background: #1a4369; }
+            
+            .bar-value {
+                width: 30px;
+                text-align: right;
+                font-size: 0.8em;
+                font-weight: 600;
+                color: #343a40;
+            }
+            
+            /* Ações Rápidas */
+            .quick-actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                margin-bottom: 25px;
+            }
+            
+            .quick-action {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 15px;
+                border: none;
+                border-radius: 8px;
+                background: #f8f9fa;
+                color: #343a40;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                position: relative;
+            }
+            
+            .quick-action:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+            
+            .quick-action.primary { background: #1a4369; color: white; }
+            .quick-action.success { background: #28a745; color: white; }
+            .quick-action.info { background: #17a2b8; color: white; }
+            .quick-action.warning { background: #ffc107; color: #343a40; }
+            
+            .action-badge {
+                position: absolute;
+                top: -5px;
+                right: -5px;
+                background: #dc3545;
+                color: white;
+                padding: 2px 6px;
+                border-radius: 10px;
+                font-size: 0.7em;
+                font-weight: 600;
+            }
+            
+            /* Status do Sistema */
+            .system-status {
+                border-top: 1px solid #e9ecef;
+                padding-top: 20px;
+            }
+            
+            .system-status h5 {
+                margin: 0 0 15px 0;
+                color: #343a40;
+                font-size: 0.9em;
+                font-weight: 600;
+            }
+            
+            .status-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 8px 0;
+                font-size: 0.85em;
+            }
+            
+            .status-ok { color: #28a745; }
+            .status-error { color: #dc3545; }
+            .status-warning { color: #ffc107; }
+            
+            /* Estados Vazios */
+            .empty-state {
+                text-align: center;
+                padding: 40px 20px;
+                color: #6c757d;
+            }
+            
+            .empty-state i {
+                font-size: 3em;
+                margin-bottom: 15px;
+                opacity: 0.5;
+            }
+            
+            .empty-state p {
+                margin: 0;
+                font-size: 0.9em;
+            }
+            
+            /* Botões */
+            .btn-link {
+                background: none;
+                border: none;
+                color: #1a4369;
+                font-weight: 600;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 0;
+                font-size: 0.9em;
+            }
+            
+            .btn-link:hover {
+                color: #ff6f00;
+            }
+            
+            .btn-retry {
+                background: #1a4369;
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 6px;
+                font-weight: 600;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-top: 15px;
+            }
+            
+            .btn-retry:hover {
+                background: #153354;
+            }
+            
+            /* Estado de Erro */
+            .error-state {
+                text-align: center;
+                padding: 60px 30px;
+                color: #6c757d;
+            }
+            
+            .error-state i {
+                font-size: 4em;
+                color: #dc3545;
+                margin-bottom: 20px;
+            }
+            
+            .error-state h4 {
+                margin: 0 0 10px 0;
+                color: #343a40;
+            }
+            
+            .error-state p {
+                margin: 0 0 20px 0;
+                font-size: 0.95em;
+            }
+            
+            /* Responsivo */
+            @media (max-width: 768px) {
+                .stats-grid {
+                    grid-template-columns: 1fr;
+                    padding: 20px;
+                }
+                
+                .dashboard-grid {
+                    grid-template-columns: 1fr;
+                    padding: 20px;
+                    gap: 20px;
+                }
+                
+                .stats-mini {
+                    grid-template-columns: 1fr;
+                }
+                
+                .quick-actions {
+                    grid-template-columns: 1fr;
+                }
+                
+                .dashboard-header {
+                    padding: 20px;
+                }
+                
+                .dashboard-header h3 {
+                    font-size: 1.5em;
+                }
+            }
+  </style>
+</head>
+
+<body class="admin-page">
+
+  <aside class="admin-sidebar">
+    <h2><i class="fas fa-cog"></i> Painel Admin</h2>
+    <nav class="admin-nav">
+      <ul>
+        <li><a href="#" onclick="showModule('dashboard', this)" class="active"><i class="fas fa-tachometer-alt"></i>
+            Dashboard</a></li>
+        <li><a href="#" onclick="showModule('vagas', this)"><i class="fas fa-clipboard-list"></i> Gerenciar Vagas</a>
+        </li>
+        <li><a href="#" onclick="showModule('usuarios', this)"><i class="fas fa-users"></i> Gerenciar Usuários</a></li>
+      </ul>
+    </nav>
+    <div class="admin-logout">
+      <button onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Sair do Admin</button>
+    </div>
+  </aside>
+
+  <main class="admin-content">
+    <h1>Administração do Trabalha Floriano</h1>
+
+    <section id="dashboardModule" class="module-section">
+      <h3>Visão Geral (Dashboard)</h3>
+      <p>Estatísticas rápidas:</p>
+      <ul>
+        <li>Total de Vagas Publicadas: <strong id="totalVagas">...</strong></li>
+        <li>Vagas Pendentes de Aprovação: <strong id="vagasPendentes">...</strong></li>
+        <li>Total de Usuários Contratantes: <strong id="totalContratantes">...</strong></li>
+        <li>Total de Colaboradores Cadastrados: <strong id="totalColaboradores">...</strong></li>
+      </ul>
+    </section>
+
+    <section id="vagasModule" class="module-section hidden">
+      <h3>Gerenciar Vagas</h3>
+      <button class="action-btn btn-approve" style="margin-bottom: 20px;" onclick="adicionarVaga()">
+        <i class="fas fa-plus"></i> Adicionar Nova Vaga
+      </button>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Empresa</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="vagasAdminTable">
+          <!-- As vagas serão carregadas aqui pelo JavaScript -->
+        </tbody>
+      </table>
+    </section>
+
+    <section id="usuariosModule" class="module-section hidden">
+      <h3>Gerenciar Usuários</h3>
+      <!-- O botão será adicionado automaticamente pelo JavaScript -->
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Perfil</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="usersAdminTable">
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <script src="admin.js"></script>
+
+</body>
+
+</html>

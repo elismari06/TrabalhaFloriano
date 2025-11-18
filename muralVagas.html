@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mural de Vagas | Portal de Empregos Floriano</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+    <link rel="stylesheet" href="style.css"> 
+    
+    <style>
+        :root {
+            --primary-color: #1a4369;
+            --action-color: #ff6f00;
+            --secondary-color: #6c757d;
+            --card-background: #ffffff;
+            --text-dark: #343a40;
+            --border-color: #dee2e6;
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .main-header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .back-to-home-btn-util {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--action-color);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-home-btn-util:hover {
+            background-color: #cc5900;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #2c5c8a 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(26, 67, 105, 0.8);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+        
+        .hero-content h2 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .hero-content p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        main.container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .auth-sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow-light);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .auth-sidebar h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .auth-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background-color: var(--action-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+
+        .auth-button:hover {
+            background-color: #e65c00;
+            transform: translateY(-2px);
+        }
+
+        .auth-button.secondary {
+            background-color: var(--secondary-color);
+        }
+
+        .auth-button.secondary:hover {
+            background-color: #5a6268;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .main-content.mural h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+        }
+
+        #searchInput {
+            padding-left: 45px;
+            border-radius: 50px;
+            border: 2px solid var(--border-color);
+            font-size: 1em;
+        }
+
+        #searchInput:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 67, 105, 0.1);
+        }
+
+        #listaVagas {
+            display: grid;
+            gap: 20px;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+            position: relative;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .job-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .job-details p {
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .job-details i {
+            width: 20px;
+            color: var(--primary-color);
+            margin-right: 8px;
+        }
+
+        .btn-apply {
+            background: var(--action-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .btn-apply:hover {
+            background: #e65c00;
+            transform: translateY(-2px);
+        }
+
+        .btn-apply.success {
+            background: var(--success-color);
+        }
+
+        .btn-apply.success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-apply.danger {
+            background: var(--danger-color);
+        }
+
+        .btn-apply.danger:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .btn-apply.secondary {
+            background: var(--secondary-color);
+            cursor: default;
+        }
+
+        .btn-apply.secondary:hover {
+            background: var(--secondary-color);
+            transform: none;
+        }
+
+        .btn-apply:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .job-type {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .bico-tag {
+            background: #fff3e0;
+            color: var(--action-color);
+        }
+
+        .emprego-tag {
+            background: #e3f2fd;
+            color: var(--primary-color);
+        }
+
+        .candidatura-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--success-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-buttons .btn-apply {
+            margin-top: 0;
+            flex: 1;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .status-message {
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .main-footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            main.container {
+                grid-template-columns: 1fr;
+            }
+            
+            .auth-sidebar {
+                position: static;
+            }
+            
+            .hero-content h2 {
+                font-size: 2.5em;
+            }
+            
+            .back-to-home-btn-util {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin: 20px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="index.html" class="back-to-home-btn-util">
+        <i class="fas fa-arrow-left"></i> Voltar para Início
+    </a>
+
+    <header class="main-header">
+        <div class="container">
+            <!-- Header content -->
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="video-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h2>Mural de Vagas</h2>
+                <p>Encontre as melhores oportunidades de emprego em Floriano</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        
+        <aside class="auth-sidebar card">
+            <div id="authStatus">
+                <!-- Conteúdo dinâmico de login -->
+            </div>
+
+            <div id="vagaFormSection" class="hidden">
+                <!-- Formulário de vaga -->
+            </div>
+        </aside>
+
+        <section class="main-content mural" id="mural">
+            <h2><i class="fas fa-search"></i> Encontre o seu Próximo Emprego</h2>
+
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Buscar por título, área ou empresa...">
+            </div>
+
+            <div id="listaVagas">
+                <!-- Vagas serão carregadas aqui -->
+            </div>
+            
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Portal de Empregos Floriano - Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = 'http://localhost:3000';
+        let currentUser = { isLoggedIn: false, role: null, id: null, email: null };
+
+        // ==================== SISTEMA DE CANDIDATURAS ====================
+        async function criarOuBuscarUsuario(email, role) {
+            try {
+                const response = await fetch(`${API_URL}/usuarios?email=${email}`);
+                const usuariosExistentes = await response.json();
+                
+                if (usuariosExistentes.length > 0) {
+                    return usuariosExistentes[0];
+                } else {
+                    const novoUsuario = {
+                        email: email,
+                        nome: email.split('@')[0],
+                        role: role,
+                        ativo: true,
+                        dataCadastro: new Date().toISOString().split('T')[0],
+                        candidaturas: []
+                    };
+                    
+                    const response = await fetch(`${API_URL}/usuarios`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(novoUsuario)
+                    });
+                    
+                    if (!response.ok) throw new Error('Erro ao criar usuário');
+                    
+                    return await response.json();
+                }
+            } catch (error) {
+                console.error('Erro no sistema de usuários:', error);
+                return {
+                    id: Math.random(),
+                    email: email,
+                    nome: email.split('@')[0],
+                    role: role,
+                    ativo: true,
+                    candidaturas: []
+                };
+            }
+        }
+
+        async function candidatarVaga(vagaId, vagaTitle) {
+            if (!currentUser.isLoggedIn) {
+                showMessage('error', 'Você precisa fazer login para se candidatar a vagas.');
+                checkLoginStatus();
+                return;
+            }
+
+            if (currentUser.role !== 'colaborador') {
+                alert('❌ Apenas colaboradores podem se candidatar a vagas.');
+                return;
+            }
+
+            try {
+                const userResponse = await fetch(`${API_URL}/usuarios/${currentUser.id}`);
+                if (!userResponse.ok) throw new Error('Erro ao buscar usuário');
+                
+                const usuario = await userResponse.json();
+                
+                if (usuario.candidaturas && usuario.candidaturas.includes(vagaId)) {
+                    alert('✅ Você já se candidatou a esta vaga!');
+                    renderVagas();
+                    return;
+                }
+
+                if (!confirm(`Deseja se candidatar à vaga:\n"${vagaTitle}"?\n\nVocê poderá desistir da candidatura a qualquer momento.`)) {
+                    return;
+                }
+
+                const candidaturasAtualizadas = usuario.candidaturas ? [...usuario.candidaturas, vagaId] : [vagaId];
+                
+                const updateResponse = await fetch(`${API_URL}/usuarios/${currentUser.id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        candidaturas: candidaturasAtualizadas 
+                    })
+                });
+
+                if (!updateResponse.ok) throw new Error('Erro ao salvar candidatura');
+
+                currentUser.candidaturas = candidaturasAtualizadas;
+
+                const vagaResponse = await fetch(`${API_URL}/vagas/${vagaId}`);
+                if (vagaResponse.ok) {
+                    const vaga = await vagaResponse.json();
+                    
+                    alert(`🎉 Candidatura realizada com sucesso!\n\nVaga: ${vaga.title}\nEmpresa: ${vaga.empresa}\n\n📞 Entre em contato:\n${vaga.contact || "Contato via perfil do contratante"}\n\nBoa sorte! 🍀`);
+                } else {
+                    alert('🎉 Candidatura realizada com sucesso!\n\nEntre em contato com a empresa para mais informações.');
+                }
+
+                renderVagas();
+
+            } catch (error) {
+                console.error('Erro ao processar candidatura:', error);
+                alert('❌ Erro ao processar candidatura. Tente novamente.');
+            }
+        }
+
+        async function desistirCandidatura(vagaId, vagaTitle) {
+            if (!currentUser.isLoggedIn || currentUser.role !== 'colaborador') {
+                return;
+            }
+
+            if (!confirm(`Tem certeza que deseja desistir da vaga:\n"${vagaTitle}"?\n\nVocê poderá se candidatar novamente depois.`)) {
+                return;
+            }
+
+            try {
+                const userResponse = await fetch(`${API_URL}/usuarios/${currentUser.id}`);
+                if (!userResponse.ok) throw new Error('Erro ao buscar usuário');
+                
+                const usuario = await userResponse.json();
+                
+                if (!usuario.candidaturas || !usuario.candidaturas.includes(vagaId)) {
+                    alert('Você não está candidatado a esta vaga.');
+                    return;
+                }
+
+                const candidaturasAtualizadas = usuario.candidaturas.filter(id => id !== vagaId);
+                
+                const updateResponse = await fetch(`${API_URL}/usuarios/${currentUser.id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        candidaturas: candidaturasAtualizadas 
+                    })
+                });
+
+                if (!updateResponse.ok) throw new Error('Erro ao remover candidatura');
+
+                currentUser.candidaturas = candidaturasAtualizadas;
+
+                alert(`✅ Você desistiu da vaga "${vagaTitle}".\n\nA vaga está disponível para nova candidatura.`);
+                renderVagas();
+
+            } catch (error) {
+                console.error('Erro ao desistir da candidatura:', error);
+                alert('❌ Erro ao desistir da candidatura. Tente novamente.');
+            }
+        }
+
+        async function verificarCandidatura(vagaId) {
+            if (!currentUser.isLoggedIn || !currentUser.id) return false;
+            
+            try {
+                const response = await fetch(`${API_URL}/usuarios/${currentUser.id}`);
+                if (!response.ok) return false;
+                
+                const usuario = await response.json();
+                return usuario.candidaturas && usuario.candidaturas.includes(vagaId);
+            } catch (error) {
+                console.error('Erro ao verificar candidatura:', error);
+                return false;
+            }
+        }
+
+        // ==================== FUNÇÕES DA API ====================
+        async function fetchVagas() {
+            try {
+                const response = await fetch(`${API_URL}/vagas?status=aprovada`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                console.error('Erro ao buscar vagas:', error);
+                showMessage('error', 'Não foi possível carregar as vagas. Verifique se o JSON Server está rodando.');
+                return [];
+            }
+        }
+
+        async function createVaga(vagaData) {
+            try {
+                if (!vagaData.title?.trim() || !vagaData.area?.trim() || !vagaData.local?.trim() || !vagaData.description?.trim()) {
+                    throw new Error('Por favor, preencha todos os campos obrigatórios.');
+                }
+
+                const vagaCompleta = {
+                    title: vagaData.title.trim(),
+                    empresa: currentUser.nome || "Contratante Logado",
+                    local: vagaData.local.trim(),
+                    description: vagaData.description.trim(),
+                    area: vagaData.area.trim(),
+                    isBico: vagaData.isBico || false,
+                    date: new Date().toLocaleDateString('pt-BR'),
+                    contact: "Contato via perfil do contratante",
+                    status: 'pendente',
+                    usuarioId: currentUser.id
+                };
+
+                const response = await fetch(`${API_URL}/vagas`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(vagaCompleta)
+                });
+
+                if (!response.ok) throw new Error('Erro ao criar vaga');
+
+                const vagaSalva = await response.json();
+                showMessage('success', `Vaga "${vagaSalva.title}" enviada com sucesso! Aguarde a aprovação do administrador.`);
+                
+                document.getElementById('vagaForm').reset();
+                toggleVagaForm();
+
+            } catch (error) {
+                console.error('Erro ao criar vaga:', error);
+                showMessage('error', error.message);
+            }
+        }
+
+        // ==================== RENDERIZAÇÃO ====================
+        async function createJobCardHTML(vaga) {
+            const typeLabel = vaga.isBico ? 
+                '<span class="job-type bico-tag"><i class="fas fa-handshake"></i> Bico</span>' : 
+                '<span class="job-type emprego-tag"><i class="fas fa-user-tie"></i> Emprego</span>';
+
+            let buttonHTML = '';
+            let candidaturaBadge = '';
+
+            const jaCandidatado = await verificarCandidatura(vaga.id);
+
+            if (jaCandidatado) {
+                // Já se candidatou - mostra botões para desistir
+                candidaturaBadge = '<div class="candidatura-badge"><i class="fas fa-check"></i> Candidatado</div>';
+                buttonHTML = `
+                    <div class="action-buttons">
+                        <button class="btn-apply success" onclick="candidatarVaga(${vaga.id}, '${vaga.title.replace(/'/g, "\\'")}')" title="Ver detalhes da candidatura">
+                            <i class="fas fa-eye"></i> Ver Candidatura
+                        </button>
+                        <button class="btn-apply danger" onclick="desistirCandidatura(${vaga.id}, '${vaga.title.replace(/'/g, "\\'")}')" title="Desistir desta vaga">
+                            <i class="fas fa-times"></i> Desistir
+                        </button>
+                    </div>
+                `;
+            } else if (currentUser.isLoggedIn) {
+                if (currentUser.role === 'colaborador') {
+                    // Colaborador logado - pode se candidatar
+                    buttonHTML = `
+                        <button class="btn-apply" onclick="candidatarVaga(${vaga.id}, '${vaga.title.replace(/'/g, "\\'")}')">
+                            <i class="fas fa-paper-plane"></i> Candidatar-se
+                        </button>
+                    `;
+                } else if (currentUser.role === 'contratante') {
+                    // Contratante logado - apenas visualiza
+                    buttonHTML = `
+                        <button class="btn-apply secondary" disabled>
+                            <i class="fas fa-eye"></i> Visualizar (Contratante)
+                        </button>
+                    `;
+                } else {
+                    // Admin ou outros - apenas visualiza
+                    buttonHTML = `
+                        <button class="btn-apply secondary" disabled>
+                            <i class="fas fa-eye"></i> Visualizar
+                        </button>
+                    `;
+                }
+            } else {
+                // Não logado - precisa fazer login
+                buttonHTML = `
+                    <button class="btn-apply secondary" onclick="handleUnloggedAction()">
+                        <i class="fas fa-lock"></i> Login para Candidatar
+                    </button>
+                `;
+            }
+
+            return `
+                <div class="job-card fade-in">
+                    ${candidaturaBadge}
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                        <h3>${vaga.title}</h3>
+                        ${typeLabel}
+                    </div>
+                    <div class="job-details">
+                        <p><i class="fas fa-building"></i> <strong>Empresa:</strong> ${vaga.empresa}</p>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Local:</strong> ${vaga.local}</p>
+                        <p><i class="fas fa-tag"></i> <strong>Área:</strong> ${vaga.area}</p>
+                        <p><i class="fas fa-file-alt"></i> <strong>Descrição:</strong> ${vaga.description}</p>
+                        <p><i class="fas fa-clock"></i> <strong>Publicada em:</strong> ${vaga.date}</p>
+                    </div>
+                    ${buttonHTML}
+                </div>
+            `;
+        }
+
+        async function renderVagas(searchTerm = '') {
+            const lista = document.getElementById('listaVagas');
+            lista.innerHTML = '<div style="text-align: center; padding: 40px;"><i class="fas fa-spinner fa-spin"></i><p>Carregando vagas...</p></div>';
+
+            let vagas = await fetchVagas();
+            
+            if (searchTerm.trim()) {
+                const termo = searchTerm.toLowerCase();
+                vagas = vagas.filter(vaga => 
+                    vaga.title.toLowerCase().includes(termo) ||
+                    vaga.area.toLowerCase().includes(termo) ||
+                    vaga.empresa.toLowerCase().includes(termo) ||
+                    vaga.description.toLowerCase().includes(termo)
+                );
+            }
+
+            lista.innerHTML = '';
+            
+            if (vagas.length === 0) {
+                if (searchTerm.trim()) {
+                    showMessage('warning', `Nenhuma vaga encontrada para "${searchTerm}". Tente outros termos.`);
+                } else {
+                    showMessage('warning', 'Nenhuma vaga aprovada disponível no momento. Novas vagas aparecerão aqui após aprovação.');
+                }
+                return;
+            }
+
+            for (const vaga of vagas) {
+                const vagaHTML = await createJobCardHTML(vaga);
+                lista.innerHTML += vagaHTML;
+            }
+        }
+
+        function filtrarVagas() {
+            const termo = document.getElementById('searchInput').value;
+            renderVagas(termo);
+        }
+
+        // ==================== SISTEMA DE AUTENTICAÇÃO ====================
+        const authSidebar = document.getElementById('authStatus');
+        const vagaFormSection = document.getElementById('vagaFormSection');
+
+        async function renderAuthStatus(usuario) {
+            currentUser = {
+                isLoggedIn: true,
+                role: usuario.role,
+                id: usuario.id,
+                email: usuario.email,
+                nome: usuario.nome,
+                candidaturas: usuario.candidaturas || []
+            };
+            
+            const roleText = usuario.role === 'contratante' ? 'Contratante' : 
+                           usuario.role === 'admin' ? 'Administrador' : 'Colaborador';
+            
+            const candidaturasCount = usuario.candidaturas ? usuario.candidaturas.length : 0;
+            
+            authSidebar.innerHTML = `
+                <h3><i class="fas fa-user-check"></i> Bem-vindo!</h3>
+                <p>Você está logado como <strong>${roleText}</strong></p>
+                <p style="font-size: 0.9em; color: #666;">${usuario.email}</p>
+                ${usuario.role === 'contratante' ? 
+                    `<button onclick="toggleVagaForm()" class="auth-button">
+                        <i class="fas fa-plus-circle"></i> Cadastrar Nova Vaga
+                    </button>` : 
+                    `<p style="margin-top: 15px; color: var(--success-color);">
+                        <i class="fas fa-check-circle"></i> Pronto para se candidatar!
+                    </p>`
+                }
+                ${usuario.role === 'colaborador' && candidaturasCount > 0 ? 
+                    `<div style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 6px;">
+                        <p style="font-size: 0.8em; color: var(--success-color); margin: 0;">
+                            <i class="fas fa-briefcase"></i> ${candidaturasCount} candidatura(s) ativa(s)
+                        </p>
+                        <button onclick="minhasCandidaturas()" class="auth-button" style="background: var(--primary-color); margin-top: 8px; padding: 8px; font-size: 0.8em;">
+                            <i class="fas fa-list"></i> Ver Minhas Candidaturas
+                        </button>
+                    </div>` : ''
+                }
+                <button onclick="logout()" class="auth-button secondary" style="margin-top: 15px;">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            `;
+            
+            vagaFormSection.classList.toggle('hidden', usuario.role !== 'contratante');
+            renderVagas();
+        }
+
+        async function handleAuthSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value.toLowerCase().trim();
+            
+            if (!email) {
+                alert('Por favor, informe um email.');
+                return;
+            }
+
+            let role = 'colaborador';
+            if (email.includes('admin')) {
+                role = 'admin';
+            } else if (email.includes('contratante')) {
+                role = 'contratante';
+            }
+
+            try {
+                const usuario = await criarOuBuscarUsuario(email, role);
+                
+                if (role === 'admin') {
+                    alert('🔧 Redirecionando para o Painel Administrativo...');
+                    window.location.href = 'admin.html';
+                    return;
+                }
+                
+                await renderAuthStatus(usuario);
+                
+            } catch (error) {
+                console.error('Erro no login:', error);
+                const usuarioSimulado = {
+                    id: Math.random(),
+                    email: email,
+                    nome: email.split('@')[0],
+                    role: role,
+                    ativo: true,
+                    candidaturas: []
+                };
+                await renderAuthStatus(usuarioSimulado);
+            }
+        }
+
+        function handleUnloggedAction() {
+            showMessage('error', 'Você precisa fazer login como colaborador para se candidatar a vagas.');
+            checkLoginStatus();
+        }
+
+        async function logout() {
+            if (currentUser.isLoggedIn) {
+                await salvarUsuario(currentUser);
+            }
+            
+            currentUser = { isLoggedIn: false, role: null, id: null, email: null, candidaturas: [] };
+            showMessage('success', 'Você foi desconectado com sucesso!');
+            vagaFormSection.classList.add('hidden');
+            checkLoginStatus();
+            renderVagas();
+        }
+
+        async function salvarUsuario(usuario) {
+            try {
+                if (usuario.id) {
+                    const response = await fetch(`${API_URL}/usuarios/${usuario.id}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            candidaturas: usuario.candidaturas || []
+                        })
+                    });
+                    return response.ok;
+                }
+            } catch (error) {
+                console.error('Erro ao salvar usuário:', error);
+            }
+            return false;
+        }
+
+        function checkLoginStatus() {
+            authSidebar.innerHTML = `
+                <h3><i class="fas fa-user-circle"></i> Área do Usuário</h3>
+                <form id="authForm" style="margin-top: 15px;">
+                    <input type="email" id="authEmail" placeholder="seu@email.com" required>
+                    <input type="password" placeholder="Sua senha" required>
+                    <button type="submit" class="auth-button">
+                        <i class="fas fa-sign-in-alt"></i> Entrar / Cadastrar
+                    </button>
+                </form>
+                <div style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                    <p style="font-size: 0.8em; color: var(--secondary-color); margin: 0;">
+                        <strong>💡 Dicas para teste:</strong><br>
+                        • Email com "colaborador" = Candidatar a vagas<br>
+                        • Email com "contratante" = Publicar vagas<br>
+                        • Email com "admin" = Painel Admin
+                    </p>
+                </div>
+            `;
+            document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
+        }
+
+        // ==================== FORMULÁRIO DE VAGA ====================
+        function createVagaForm() {
+            vagaFormSection.innerHTML = `
+                <h3><i class="fas fa-plus-circle"></i> Cadastrar Nova Vaga</h3>
+                <form id="vagaForm">
+                    <input type="text" id="vagaTitle" placeholder="Título da vaga *" required>
+                    <input type="text" id="vagaArea" placeholder="Área de atuação *" required>
+                    <input type="text" id="vagaLocal" placeholder="Localização *" required>
+                    <textarea id="vagaDescription" placeholder="Descrição detalhada da vaga *" required rows="4"></textarea>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="vagaIsBico">
+                        <label for="vagaIsBico">Esta vaga é um <strong>bico/serviço avulso</strong>?</label>
+                    </div>
+
+                    <button type="submit" class="auth-button" style="background: var(--primary-color);">
+                        <i class="fas fa-paper-plane"></i> Enviar para Aprovação
+                    </button>
+
+                    <p style="font-size: 0.8em; color: var(--secondary-color); text-align: center; margin-top: 10px;">
+                        <i class="fas fa-info-circle"></i> Sua vaga será revisada antes de aparecer publicamente.
+                    </p>
+                </form>
+            `;
+            
+            document.getElementById('vagaForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = {
+                    title: document.getElementById('vagaTitle').value,
+                    area: document.getElementById('vagaArea').value,
+                    local: document.getElementById('vagaLocal').value,
+                    description: document.getElementById('vagaDescription').value,
+                    isBico: document.getElementById('vagaIsBico').checked
+                };
+                createVaga(formData);
+            });
+        }
+
+        function toggleVagaForm() {
+            const isHidden = vagaFormSection.classList.contains('hidden');
+            vagaFormSection.classList.toggle('hidden', !isHidden);
+            
+            if (!isHidden) {
+                setTimeout(() => {
+                    vagaFormSection.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+        }
+
+        function showMessage(type, text) {
+            const message = document.createElement('div');
+            message.className = `status-message status-${type} fade-in`;
+            message.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                ${text}
+            `;
+            
+            document.getElementById('listaVagas').innerHTML = '';
+            document.getElementById('listaVagas').appendChild(message);
+        }
+
+        // ==================== INICIALIZAÇÃO ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Iniciando Mural de Vagas...');
+            
+            createVagaForm();
+            checkLoginStatus();
+            renderVagas();
+            
+            document.getElementById('searchInput').addEventListener('input', filtrarVagas);
+        });
+
+        // ==================== FUNÇÕES DE CANDIDATURAS ====================
+        window.minhasCandidaturas = async function() {
+            if (!currentUser.isLoggedIn) {
+                alert('Você precisa estar logado.');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/usuarios/${currentUser.id}`);
+                const usuario = await response.json();
+                
+                if (usuario.candidaturas && usuario.candidaturas.length > 0) {
+                    const vagasResponse = await fetch(`${API_URL}/vagas`);
+                    const todasVagas = await vagasResponse.json();
+                    
+                    const minhasVagas = todasVagas.filter(vaga => 
+                        usuario.candidaturas.includes(vaga.id)
+                    );
+                    
+                    if (minhasVagas.length === 0) {
+                        alert('Suas candidaturas não foram encontradas nas vagas ativas.');
+                        return;
+                    }
+                    
+                    const candidaturasList = minhasVagas.map(vaga => 
+                        `• ${vaga.title} - ${vaga.empresa}\n  📍 ${vaga.local}\n  📅 ${vaga.date}`
+                    ).join('\n\n');
+                    
+                    alert(`📋 Suas Candidaturas (${minhasVagas.length}):\n\n${candidaturasList}\n\n💡 Você pode desistir de qualquer candidatura clicando em "Desistir" na vaga.`);
+                } else {
+                    alert('Você ainda não se candidatou a nenhuma vaga.');
+                }
+            } catch (error) {
+                console.error('Erro ao buscar candidaturas:', error);
+                alert('Erro ao carregar suas candidaturas.');
+            }
+        };
+
+        window.limparCandidaturas = async function() {
+            if (!currentUser.isLoggedIn || currentUser.role !== 'colaborador') {
+                alert('Apenas colaboradores podem usar esta função.');
+                return;
+            }
+            
+            if (!confirm('⚠️ TEM CERTEZA que deseja limpar TODAS as suas candidaturas?\n\nEsta ação não pode ser desfeita.')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/usuarios/${currentUser.id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ candidaturas: [] })
+                });
+                
+                if (response.ok) {
+                    currentUser.candidaturas = [];
+                    alert('✅ Todas as suas candidaturas foram removidas!');
+                    renderVagas();
+                }
+            } catch (error) {
+                console.error('Erro ao limpar candidaturas:', error);
+                alert('❌ Erro ao limpar candidaturas.');
+            }
+        };
+    </script>
+</body>
+</html>
