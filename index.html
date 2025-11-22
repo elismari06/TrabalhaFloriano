@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Friday | Beleza & Perfumaria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #d32f2f;
+            --secondary: #212121;
+            --accent: #f44336;
+            --light: #f5f5f5;
+            --gray: #757575;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--secondary);
+            background-color: var(--light);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        .main-header {
+            background-color: var(--secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .main-header h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .main-header nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .main-header nav ul li {
+            margin-left: 20px;
+        }
+
+        .main-header nav ul li a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .main-header nav ul li a:hover {
+            color: var(--primary);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .cart-icon {
+            position: relative;
+            color: var(--white);
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .cart-icon:hover {
+            color: var(--primary);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--secondary), #424242);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="%23d32f2f" opacity="0.1"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-banner .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-banner p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            background-color: #c62828;
+        }
+
+        /* Brand Tabs */
+        .brand-tabs {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .brand-tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .brand-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .brand-tab:hover {
+            color: var(--primary);
+        }
+
+        /* Product Section */
+        .product-section {
+            padding: 40px 0;
+        }
+
+        .product-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .product-section h3 i {
+            margin-right: 10px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image-container {
+            height: 250px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .brand-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .brand-natura {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .brand-avon {
+            background-color: #fce4ec;
+            color: #c2185b;
+        }
+
+        .description {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+
+        .price-container {
+            margin-top: auto;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin: 5px 0 15px;
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .add-to-cart {
+            display: block;
+            background-color: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 10px;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary);
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1100;
+            transition: right 0.4s ease;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-content {
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .close-cart {
+            align-self: flex-end;
+            color: var(--gray);
+            font-size: 1.5rem;
+            text-decoration: none;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-cart:hover {
+            color: var(--primary);
+        }
+
+        .cart-content h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .cart-item-list {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item-details {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 5px;
+            margin-right: 15px;
+            background-color: #f0f0f0;
+            padding: 5px;
+        }
+
+        .item-details h4 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .item-details p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .cart-summary {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .summary-total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: var(--secondary);
+        }
+
+        .checkout-button {
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        .main-footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-top: 15px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-header .container {
+                flex-direction: column;
+            }
+
+            .main-header nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .main-header nav ul li {
+                margin: 5px;
+            }
+
+            .hero-banner h2 {
+                font-size: 2rem;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .brand-tabs {
+                flex-wrap: wrap;
+            }
+
+            .brand-tab {
+                padding: 10px 15px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Quantity Controls */
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .quantity-btn {
+            background-color: #f0f0f0;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .quantity-display {
+            margin: 0 10px;
+            font-weight: 600;
+        }
+
+        .remove-item {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .remove-item:hover {
+            background-color: #ff5252;
+        }
+
+        /* Payment Options */
+        .payment-options {
+            margin: 20px 0;
+        }
+
+        .payment-options h4 {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: var(--secondary);
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary);
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary);
+            background-color: #ffebee;
+        }
+
+        .payment-option input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .payment-icon {
+            font-size: 1.5rem;
+            margin-right: 12px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .payment-label {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .pix-icon {
+            color: #32BCAD;
+        }
+
+        .money-icon {
+            color: #27ae60;
+        }
+
+        .card-icon {
+            color: #e74c3c;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1050;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Feedback Message */
+        .feedback-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            z-index: 10000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            font-weight: 600;
+            display: none;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <h1>BLACK FRIDAY ElÔ VARIEDADES</h1>
+            <nav>
+                <ul>
+                    <li><a href="#perfumaria">Perfumes</a></li>
+                    <li><a href="#skincare">Skincare</a></li>
+                    <li><a href="#maquiagem">Maquiagem</a></li>
+                    <li><a href="#corporal">Corpo & Banho</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="cart-icon" id="cart-icon" aria-label="Acessar Carrinho de Compras">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="hero-banner" id="ofertas-principais">
+        <div class="container">
+            <h2>NATURA & AVON | ATÉ 70% OFF</h2>
+            <p>O melhor da beleza e perfumaria com descontos imperdíveis. Aproveite antes que acabe!</p>
+            <a href="#produtos" class="cta-button">COMPRE AGORA!</a>
+        </div>
+    </section>
+
+    <div class="brand-tabs container">
+        <button class="brand-tab active" data-brand="all">Todas as Marcas</button>
+        <button class="brand-tab" data-brand="natura">Natura</button>
+        <button class="brand-tab" data-brand="avon">Avon</button>
+    </div>
+
+    <main class="product-section" id="produtos">
+        <div class="container">
+
+            <h3 id="perfumaria"><i class="fas fa-spray-can"></i> Perfumaria - Essências Exclusivas</h3>
+            <div class="product-grid" id="perfumaria-grid">
+                <!-- Produtos de perfumaria serão inseridos aqui via JavaScript -->
+            </div>
+
+            <h3 id="skincare"><i class="fas fa-spa"></i> Skincare - Cuide da Sua Pele</h3>
+            <div class="product-grid" id="skincare-grid">
+                <!-- Produtos de skincare serão inseridos aqui via JavaScript -->
+            </div>
+
+            <h3 id="maquiagem"><i class="fas fa-palette"></i> Maquiagem - Cores e Lançamentos</h3>
+            <div class="product-grid" id="maquiagem-grid">
+                <!-- Produtos de maquiagem serão inseridos aqui via JavaScript -->
+            </div>
+
+            <h3 id="corporal"><i class="fas fa-pump-soap"></i> Corpo & Banho - Cuidado Diário</h3>
+            <div class="product-grid" id="corporal-grid">
+                <!-- Produtos de corpo e banho serão inseridos aqui via JavaScript -->
+            </div>
+
+        </div>
+    </main>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="feedback-message" id="feedback-message"></div>
+
+    <aside class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-content">
+            <a href="#" class="close-cart" id="close-cart" aria-label="Fechar Carrinho"><i class="fas fa-times"></i></a>
+            <h3>🛒 Seu Carrinho</h3>
+
+            <div class="cart-item-list" id="cart-items">
+                <!-- Itens do carrinho serão inseridos aqui via JavaScript -->
+            </div>
+
+            <div class="payment-options">
+                <h4>Forma de Pagamento:</h4>
+                <div class="payment-option" id="payment-pix">
+                    <input type="radio" id="pix" name="payment" value="PIX" checked>
+                    <div class="payment-icon pix-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <label for="pix" class="payment-label">PIX</label>
+                </div>
+                <div class="payment-option" id="payment-dinheiro">
+                    <input type="radio" id="dinheiro" name="payment" value="Dinheiro">
+                    <div class="payment-icon money-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <label for="dinheiro" class="payment-label">Dinheiro</label>
+                </div>
+                <div class="payment-option" id="payment-cartao">
+                    <input type="radio" id="cartao" name="payment" value="Cartão">
+                    <div class="payment-icon card-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <label for="cartao" class="payment-label">Cartão</label>
+                </div>
+            </div>
+
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">R$ 0,00</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span>TOTAL:</span>
+                    <span id="total">R$ 0,00</span>
+                </div>
+            </div>
+
+            <div class="checkout-button">
+                <a href="#" class="cta-button" id="checkout-whatsapp">
+                    <i class="fab fa-whatsapp"></i> FECHAR PEDIDO NO WHATSAPP
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; Black Friday 2025 | Ofertas válidas enquanto durarem os estoques.</p>
+            <div class="footer-links">
+                <a href="#">Política de Privacidade</a> |
+                <a href="#">Trocas e Devoluções</a> |
+                <a href="">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Lista de produtos baseada na sua lista
+        const produtos = [
+            // Perfumaria - Natura
+            {
+                id: 8,
+                nome: "Kaiak Masculino Natura",
+                categoria: "perfumaria",
+                marca: "natura",
+                precoOriginal: 185.90,
+                precoPromocional: 130.00,
+                descricao: "Clássico atemporal com notas amadeiradas.",
+                imagem: "kayakt.jpg"
+            },
+            {
+                id: 23,
+                nome: "Tônico Facial Avon Água de Rosas 3 em 1",
+                categoria: "skincare",
+                marca: "avon",
+                precoOriginal: 22.99,
+                precoPromocional: 16.70,
+                descricao: "Tônico suave para revitalizar a pele.",
+                imagem: "tonico.jpg"
+            },
+
+            // Perfumaria - Avon
+            {
+                id: 4,
+                nome: "Mamãe Bebé Colônia Mini: 50ml",
+                categoria: "perfumaria",
+                marca: "natura",
+                precoOriginal: 50.00,
+                precoPromocional: 25.00,
+                descricao: "Colônia suave para bebês, ideal para presentear.",
+                imagem: "mamaebebe.jpg"
+            },
+            {
+                id: 5,
+                nome: "Avon Petit Attitude Libellule Deo colonia 50ml",
+                categoria: "perfumaria",
+                marca: "avon",
+                precoOriginal: 60.00,
+                precoPromocional: 35.00,
+                descricao: "Fragrância delicada e encantadora.",
+                imagem: "libellule.jpg"
+            },
+            {
+                id: 6,
+                nome: "Petit Attitude Lavande Colônia 50ml Avon",
+                categoria: "perfumaria",
+                marca: "avon",
+                precoOriginal: 60.00,
+                precoPromocional: 35.00,
+                descricao: "Essência relaxante de lavanda para momentos de tranquilidade.",
+                imagem: "lavanda.jpg"
+            },
+            {
+                id: 7,
+                nome: "Petit Attitude Tradicional Avon 50ml",
+                categoria: "perfumaria",
+                marca: "avon",
+                precoOriginal: 60.00,
+                precoPromocional: 35.00,
+                descricao: "Fragrância fresca e revigorante.",
+                imagem: "altitude.jpg"
+            },
+            {
+                id: 31,
+                nome: "Perfume Pur Blanca Hope Desodorante Colônia Feminino 75ml",
+                categoria: "perfumaria",
+                marca: "avon",
+                precoOriginal: 69.90,
+                precoPromocional: 48.93,
+                descricao: "Fragrância sofisticada e elegante.",
+                imagem: "pur-blanca.jpg"
+            },
+            {
+                id: 32,
+                nome: "Pur Blanca Gardenia Deo Colônia 75 Ml Feminino",
+                categoria: "perfumaria",
+                marca: "avon",
+                precoOriginal: 69.90,
+                precoPromocional: 43.93,
+                descricao: "Perfume floral com notas de gardênia.",
+                imagem: "gardenia.jpg"
+            },
+            {
+                id: 25,
+                nome: "Luvas De Silicone Creme Protetor Para Mãos Avon Care",
+                categoria: "corporal",
+                marca: "avon",
+                precoOriginal: 28.99,
+                precoPromocional: 20.00,
+                descricao: "Hidratante com silicone para mãos macias.",
+                imagem: "creme-maos.jpg"
+            },
+            {
+                id: 28,
+                nome: "Body Splash Aquavibe Refrescantes Pretty Blue Avon 300ml",
+                categoria: "perfumaria",
+                marca: "avon",
+                precoOriginal: 37.99,
+                precoPromocional: 26.59,
+                descricao: "Produto com fragrância de ameixa.",
+                imagem: "prettyblue.jpg"
+            },
+            {
+                id: 27,
+                nome: "Aquavibe baby smell Body Splash 300 Ml",
+                categoria: "perfumaria",
+                marca: "avon",
+                precoOriginal: 37.99,
+                precoPromocional: 26.59,
+                descricao: "Produto com fragrância de ameixa.",
+                imagem: "babysmell.jpg"
+            },
+
+
+            // Skincare - Natura
+            {
+                id: 21,
+                nome: "Chronos Protetor Antioleosidade Redutor de Poros Fps 30 Natura",
+                categoria: "skincare",
+                marca: "natura",
+                precoOriginal: 70.00,
+                precoPromocional: 42.00,
+                descricao: "Cuidado completo para a área dos olhos e poros.",
+                imagem: "protetor.jpg"
+            },
+
+            // Skincare - Avon
+            {
+                id: 9,
+                nome: "Biografia Assinatura Desodorante Colônia Feminino 100ml",
+                categoria: "perfumaria",
+                marca: "natura",
+                precoOriginal: 192.00,
+                precoPromocional: 134.00,
+                descricao: "Tratamento facial com ativos naturais para pele radiante.",
+                imagem: "biografia.jpg"
+            },
+            {
+                id: 24,
+                nome: "Protetor Solar Facial Avon Renew Fps50 Cor Média Clara 40g",
+                categoria: "skincare",
+                marca: "avon",
+                precoOriginal: 47.90,
+                precoPromocional: 33.53,
+                descricao: "Proteção solar com renovação celular.",
+                imagem: "renew.jpg"
+            },
+            {
+                id: 33,
+                nome: "Renew Dia e Noite",
+                categoria: "skincare",
+                marca: "avon",
+                precoOriginal: 79.00,
+                precoPromocional: 55.00,
+                descricao: "Tratamento completo para uso diário e noturno.",
+                imagem: "renew-dn.jpg"
+            },
+            {
+                id: 29,
+                nome: "Aquavibe Ameixa Body Splash 300 Ml",
+                categoria: "perfumaria",
+                marca: "avon",
+                precoOriginal: 37.99,
+                precoPromocional: 26.59,
+                descricao: "Produto com fragrância de ameixa.",
+                imagem: "ameixa.jpg"
+            },
+
+
+            // Maquiagem - Avon
+            {
+                id: 34,
+                nome: "Pó compacto beige 212N FPS 10 matte - Avon 7g",
+                categoria: "maquiagem",
+                marca: "avon",
+                precoOriginal: 22.99,
+                precoPromocional: 16.93,
+                descricao: "Pó compacto para acabamento perfeito.",
+                imagem: "po-compacto.jpg"
+            },
+
+            // Corpo & Banho - Natura
+            {
+                id: 1,
+                nome: "Sabonete Em Barra Tododia Ameixa E Flor De Baunilha 5 Unidades",
+                categoria: "corporal",
+                marca: "natura",
+                precoOriginal: 33.90,
+                precoPromocional: 23.73,
+                descricao: "Sabonete com fragrância exclusiva de ciruela e flor de baunilha.",
+                imagem: "sabonetebaunilha.jpg"
+            },
+            {
+                id: 2,
+                nome: "Sabonete Tâmara E Canela Tododia Natura Com 5 Unidades",
+                categoria: "corporal",
+                marca: "natura",
+                precoOriginal: 33.90,
+                precoPromocional: 23.73,
+                descricao: "Sabonete com fragrância quente de tamara e canela.",
+                imagem: "sabonetetamaracanela.jpg"
+            },
+            {
+                id: 3,
+                nome: "Sabonete Em Barra Tododia Macadamia 5 Unidades",
+                categoria: "corporal",
+                marca: "natura",
+                precoOriginal: 33.90,
+                precoPromocional: 23.73,
+                descricao: "Sabonete com óleo de macadâmia para hidratação intensa.",
+                imagem: "sabonetemacadamia.jpg"
+            },
+            {
+                id: 11,
+                nome: "Shampoo cabelo e corpo Natura Essencial Atrai 125 Ml",
+                categoria: "corporal",
+                marca: "natura",
+                precoOriginal: 45.00,
+                precoPromocional: 28.00,
+                descricao: "Produto 2 em 1 para cabelo e corpo com fragrância marcante.",
+                imagem: "atrai.jpg"
+            },
+            {
+                id: 12,
+                nome: "Natura Homem Shampoo 2 Em 1",
+                categoria: "corporal",
+                marca: "natura",
+                precoOriginal: 60.00,
+                precoPromocional: 35.00,
+                descricao: "Shampoo e condicionador em um para homens.",
+                imagem: "somnio.jpg"
+            },
+            {
+                id: 13,
+                nome: "Desodorante Em Creme Leite De Algodão Tododia Natura 80G",
+                categoria: "corporal",
+                marca: "natura",
+                precoOriginal: 30.90,
+                precoPromocional: 21.63,
+                descricao: "Desodorante suave com fragrância de leite e algodão.",
+                imagem: "leite-algodao.jpg"
+            },
+            {
+                id: 14,
+                nome: "Desodorante Em Creme Natura Tododia Cereja E Avelã",
+                categoria: "corporal",
+                marca: "natura",
+                precoOriginal: 30.90,
+                precoPromocional: 21.63,
+                descricao: "Desodorante com doce aroma de cereja e avelã.",
+                imagem: "cereja-avela.jpg"
+            },
+            {
+                id: 15,
+                nome: "Desodorante Corporal Natura Homem 100ml",
+                categoria: "corporal",
+                marca: "natura",
+                precoOriginal: 50.00,
+                precoPromocional: 35.00,
+                descricao: "Desodorante de longa duração para homens.",
+                imagem: "desodorante-homem.jpg"
+            },
+            {
+                id: 16,
+                nome: "Kayak Shampoo Cabelo e Corpo refrescante",
+                categoria: "corporal",
+                marca: "natura",
+                precoOriginal: 40.00,
+                precoPromocional: 28.00,
+                descricao: "Shampoo refrescante para cabelo e corpo.",
+                imagem: "kayak-shampoo.jpg"
+            },
+            {
+                id: 17,
+                nome: "Natura Kaiak Oceano Masculino Roll On",
+                categoria: "corporal",
+                marca: "natura",
+                precoOriginal: 30.00,
+                precoPromocional: 25.00,
+                descricao: "Desodorante com fragrância oceânica.",
+                imagem: "kaiak-oceano.jpg"
+            },
+            {
+                id: 18,
+                nome: "Refil Creme Hidratante Tododia Cereja Negra E Praliné 400ml",
+                categoria: "corporal",
+                marca: "natura",
+                precoOriginal: 65.00,
+                precoPromocional: 45.00,
+                descricao: "Hidratante com aroma de cereja negra e praliné.",
+                imagem: "cereja-negra.jpg"
+            },
+            {
+                id: 19,
+                nome: "Refil Creme Desodorante Nutritivo Corporal Tododia Macadâmia 400ml",
+                categoria: "corporal",
+                marca: "natura",
+                precoOriginal: 65.00,
+                precoPromocional: 45.00,
+                descricao: "Refil econômico do hidratante com macadâmia.",
+                imagem: "macadamia-refil.jpg"
+            },
+            {
+                id: 20,
+                nome: "natura Creme Nutritivo Para O Corpo Tododia Cereja E Avelã 400ml",
+                categoria: "corporal",
+                marca: "natura",
+                precoOriginal: 75.00,
+                precoPromocional: 52.00,
+                descricao: "Hidratante diário com fragrância suave.",
+                imagem: "regular.jpg"
+            },
+
+            // Corpo & Banho - Avon
+            {
+                id: 10,
+                nome: "Body Splash",
+                categoria: "perfumaria",
+                marca: "natura",
+                precoOriginal: 61.53,
+                precoPromocional: 61.53,
+                descricao: "Refrescante corporal com fragrância leve.",
+                imagem: "body-splash.jpg"
+            },
+            {
+                id: 22,
+                nome: "Avon Care Intimate Fresh Sabonete Líquido Intimo 250ml",
+                categoria: "corporal",
+                marca: "avon",
+                precoOriginal: 23.90,
+                precoPromocional: 16.00,
+                descricao: "Sabonete íntimo com sensação de frescor.",
+                imagem: "intimo-fresh.jpg"
+            },
+            {
+                id: 26,
+                nome: "Kit Colônia Masculina 300km/h Quantum Avon - 100ml + Shampoo Cabelo e Corpo 2 em 1 250ml",
+                categoria: "perfumaria",
+                marca: "avon",
+                precoOriginal: 128.00,
+                precoPromocional: 89.00,
+                descricao: "Kit completo para cuidados masculinos.",
+                imagem: "quantum.jpg"
+            },
+            {
+                id: 30,
+                nome: "Desodorante Corporal Em Spray 300Km/H Max Turbo",
+                categoria: "perfumaria",
+                marca: "avon",
+                precoOriginal: 60.00,
+                precoPromocional: 42.00,
+                descricao: "Combo com desodorante e shampoo.",
+                imagem: "300km.jpg"
+            }
+        ];
+
+        // Carrinho de compras
+        let carrinho = [];
+        let marcaSelecionada = 'all';
+
+        // Inicializar a página
+        document.addEventListener('DOMContentLoaded', function () {
+            renderizarProdutos();
+            atualizarCarrinho();
+            configurarEventos();
+        });
+
+        // Renderizar produtos nas categorias
+        function renderizarProdutos() {
+            const categorias = ['perfumaria', 'skincare', 'maquiagem', 'corporal'];
+
+            categorias.forEach(categoria => {
+                const grid = document.getElementById(`${categoria}-grid`);
+                grid.innerHTML = '';
+
+                let produtosCategoria = produtos.filter(produto => produto.categoria === categoria);
+
+                // Filtrar por marca se necessário
+                if (marcaSelecionada !== 'all') {
+                    produtosCategoria = produtosCategoria.filter(produto => produto.marca === marcaSelecionada);
+                }
+
+                if (produtosCategoria.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-state" style="grid-column: 1 / -1;">
+                            <i class="fas fa-box-open"></i>
+                            <h4>Nenhum produto encontrado</h4>
+                            <p>Tente selecionar outra marca ou categoria</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                produtosCategoria.forEach(produto => {
+                    const card = document.createElement('article');
+                    card.className = 'product-card';
+                    card.dataset.id = produto.id;
+                    card.dataset.marca = produto.marca;
+
+                    // Calcular desconto se houver preço original
+                    let desconto = '';
+                    if (produto.precoOriginal && produto.precoPromocional) {
+                        const percentual = Math.round((1 - produto.precoPromocional / produto.precoOriginal) * 100);
+                        desconto = `<span class="badge">-${percentual}%</span>`;
+                    } else if (!produto.precoOriginal && produto.precoPromocional) {
+                        desconto = `<span class="badge">OFERTA</span>`;
+                    }
+
+                    card.innerHTML = `
+                        <div class="product-image-container">
+                            ${produto.imagem ? `<img src="${produto.imagem}" alt="${produto.nome}">` : 'Imagem do Produto'}
+                            ${desconto}
+                        </div>
+                        <div class="product-card-content">
+                            <span class="brand-tag brand-${produto.marca}">${produto.marca.toUpperCase()}</span>
+                            <h4>${produto.nome}</h4>
+                            <p class="description">${produto.descricao}</p>
+                            <div class="price-container">
+                                ${produto.precoOriginal ? `<p class="old-price">De R$ ${produto.precoOriginal.toFixed(2)}</p>` : ''}
+                                ${produto.precoPromocional ? `<p class="price">Por R$ ${produto.precoPromocional.toFixed(2)}</p>` : '<p class="price">Preço sob consulta</p>'}
+                                ${produto.precoPromocional ?
+                            `<button class="add-to-cart" data-id="${produto.id}">ADICIONAR</button>` :
+                            `<button class="add-to-cart" style="background-color: #95a5a6; cursor: not-allowed;" disabled>INDISPONÍVEL</button>`
+                        }
+                            </div>
+                        </div>
+                    `;
+
+                    grid.appendChild(card);
+                });
+            });
+        }
+
+        // Configurar eventos
+        function configurarEventos() {
+            // Adicionar produto ao carrinho
+            document.addEventListener('click', function (e) {
+                if (e.target.classList.contains('add-to-cart') && e.target.dataset.id) {
+                    e.preventDefault();
+                    const id = parseInt(e.target.dataset.id);
+                    adicionarAoCarrinho(id);
+                }
+            });
+
+            // Abrir/fechar carrinho
+            document.getElementById('cart-icon').addEventListener('click', function (e) {
+                e.preventDefault();
+                abrirCarrinho();
+            });
+
+            document.getElementById('close-cart').addEventListener('click', function (e) {
+                e.preventDefault();
+                fecharCarrinho();
+            });
+
+            document.getElementById('overlay').addEventListener('click', function () {
+                fecharCarrinho();
+            });
+
+            // Finalizar pedido no WhatsApp
+            document.getElementById('checkout-whatsapp').addEventListener('click', function (e) {
+                e.preventDefault();
+                finalizarPedidoWhatsApp();
+            });
+
+            // Seleção de forma de pagamento
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.addEventListener('click', function () {
+                    // Remover seleção anterior
+                    document.querySelectorAll('.payment-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+
+                    // Adicionar seleção atual
+                    this.classList.add('selected');
+
+                    // Marcar o radio button correspondente
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                });
+            });
+
+            // Filtros por marca
+            document.querySelectorAll('.brand-tab').forEach(tab => {
+                tab.addEventListener('click', function () {
+                    // Atualizar tabs ativas
+                    document.querySelectorAll('.brand-tab').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    this.classList.add('active');
+
+                    // Atualizar marca selecionada
+                    marcaSelecionada = this.dataset.brand;
+
+                    // Re-renderizar produtos
+                    renderizarProdutos();
+                });
+            });
+        }
+
+        // Abrir carrinho
+        function abrirCarrinho() {
+            document.getElementById('cart-sidebar').classList.add('open');
+            document.getElementById('overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fechar carrinho
+        function fecharCarrinho() {
+            document.getElementById('cart-sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Adicionar produto ao carrinho
+        function adicionarAoCarrinho(idProduto) {
+            const produto = produtos.find(p => p.id === idProduto);
+            if (!produto || !produto.precoPromocional) return;
+
+            const itemExistente = carrinho.find(item => item.id === idProduto);
+
+            if (itemExistente) {
+                itemExistente.quantidade++;
+            } else {
+                carrinho.push({
+                    id: produto.id,
+                    nome: produto.nome,
+                    preco: produto.precoPromocional,
+                    quantidade: 1,
+                    marca: produto.marca
+                });
+            }
+
+            atualizarCarrinho();
+            mostrarFeedback('Produto adicionado ao carrinho!');
+
+            // Abrir o carrinho automaticamente
+            abrirCarrinho();
+        }
+
+        // Remover produto do carrinho
+        function removerDoCarrinho(idProduto) {
+            carrinho = carrinho.filter(item => item.id !== idProduto);
+            atualizarCarrinho();
+            mostrarFeedback('Produto removido do carrinho!');
+        }
+
+        // Atualizar quantidade no carrinho
+        function atualizarQuantidade(idProduto, novaQuantidade) {
+            if (novaQuantidade < 1) {
+                removerDoCarrinho(idProduto);
+                return;
+            }
+
+            const item = carrinho.find(item => item.id === idProduto);
+            if (item) {
+                item.quantidade = novaQuantidade;
+                atualizarCarrinho();
+            }
+        }
+
+        // Atualizar visualização do carrinho
+        function atualizarCarrinho() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.querySelector('.cart-count');
+            const subtotalElement = document.getElementById('subtotal');
+            const totalElement = document.getElementById('total');
+
+            cartItems.innerHTML = '';
+
+            let subtotal = 0;
+            let totalItens = 0;
+
+            carrinho.forEach(item => {
+                const itemTotal = item.preco * item.quantidade;
+                subtotal += itemTotal;
+                totalItens += item.quantidade;
+
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <div class="item-details">
+                        <img class="item-image" src="${produtos.find(p => p.id === item.id).imagem || ''}" alt="${item.nome}">
+                        <div>
+                            <h4>${item.nome}</h4>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="atualizarQuantidade(${item.id}, ${item.quantidade - 1})">-</button>
+                                <span class="quantity-display">${item.quantidade}</span>
+                                <button class="quantity-btn" onclick="atualizarQuantidade(${item.id}, ${item.quantidade + 1})">+</button>
+                                <button class="remove-item" onclick="removerDoCarrinho(${item.id})">Remover</button>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="item-price">R$ ${itemTotal.toFixed(2)}</span>
+                `;
+                cartItems.appendChild(itemElement);
+            });
+
+            // Atualizar contadores
+            cartCount.textContent = totalItens;
+            subtotalElement.textContent = `R$ ${subtotal.toFixed(2)}`;
+            totalElement.textContent = `R$ ${subtotal.toFixed(2)}`;
+
+            // Mensagem carrinho vazio
+            if (carrinho.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h4>Seu carrinho está vazio</h4>
+                        <p>Adicione produtos para continuar</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Finalizar pedido via WhatsApp
+        function finalizarPedidoWhatsApp() {
+            if (carrinho.length === 0) {
+                alert('Seu carrinho está vazio!');
+                return;
+            }
+
+            // Obter forma de pagamento selecionada
+            const formaPagamento = document.querySelector('input[name="payment"]:checked').value;
+
+            // Formatar mensagem para WhatsApp
+            let mensagem = "🛒 *PEDIDO - BLACK FRIDAY BEAUTY* 🛒%0A%0A";
+            mensagem += "*Itens do pedido:*%0A%0A";
+
+            let total = 0;
+            carrinho.forEach(item => {
+                const subtotal = item.preco * item.quantidade;
+                total += subtotal;
+                mensagem += `• ${item.quantidade}x ${item.nome}%0A`;
+                mensagem += `  R$ ${item.preco.toFixed(2)} = R$ ${subtotal.toFixed(2)}%0A%0A`;
+            });
+
+            mensagem += `*Total: R$ ${total.toFixed(2)}*%0A%0A`;
+            mensagem += `*Forma de pagamento: ${formaPagamento}*%0A%0A`;
+            mensagem += "Por favor, confirme este pedido!";
+
+            // Número do WhatsApp (substitua pelo seu número)
+            const numeroWhatsApp = "558994407647"; // Formato: 55 + DDD + número
+
+            // Abrir WhatsApp
+            window.open(`https://wa.me/${numeroWhatsApp}?text=${mensagem}`, '_blank');
+        }
+
+        // Mostrar feedback visual
+        function mostrarFeedback(mensagem) {
+            const feedback = document.getElementById('feedback-message');
+            feedback.textContent = mensagem;
+            feedback.style.display = 'block';
+
+            // Ocultar após 3 segundos
+            setTimeout(() => {
+                feedback.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>
